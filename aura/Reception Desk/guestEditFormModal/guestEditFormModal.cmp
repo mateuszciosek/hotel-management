@@ -1,0 +1,67 @@
+<!--
+ - Created by Mateusz on 2018-07-28.
+ -->
+
+<!--
+ - Created by Mateusz on 2018-07-19.
+ -->
+
+<aura:component controller="ReceptionDeskController" description="guestFormModal">
+    <aura:attribute name="guest" type="Object"/>
+    <aura:attribute name="searchResult" type="Boolean" default="false"/>
+
+    <aura:registerEvent name="guestFormModalData" type="c:guestFormModalData"/>
+
+    <!--<aura:handler name="init" value="{!this}" action="{!c.onInit}"/>-->
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Guest</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <p class="slds-text-align--center">Enter New Guest or search existing one by his ID Card Number.</p>
+                <form class="slds-form--stacked">
+                    <lightning:input aura:id="firstname" required="true"
+                                     value="{!v.guest.First_Name__c}"
+                                     name="firstname"
+                                     label="First Name"
+                                     type="text"/>
+                    <lightning:input aura:id="lastname" required="true"
+                                     value="{!v.guest.Last_Name__c}"
+                                     name="lastname"
+                                     label="Last Name"
+                                     type="text"/>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_2-of-3">
+                            <lightning:input aura:id="idcard" required="true"
+                                             value="{!v.guest.ID_Card__c}"
+                                             name="idcard"
+                                             label="ID Card"
+                                             minlength="9"
+                                             maxlength="9"
+                                             messageWhenTooShort="ID must have 3 characters at beginning and 6 digits following"
+                                             messageWhenTooLong="ID must have 3 characters at beginning and 6 digits following"
+                                             type="text"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <aura:if isTrue="{!v.searchResult}">
+                                <p class="slds-text-color_error slds-text-body--small slds-text-align--center">No Guest with this ID was found.</p>
+                                <aura:set attribute="else">
+                                    <lightning:button class="slds-m-top--medium" label="Search" onclick="{!c.searchByIdCard}"/>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick="{!c.cancelModal}">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick="{!c.saveGuest}">Save</button>
+            </footer>
+        </div>
+    </section>
+
+    <!--    <div class="slds-backdrop slds-backdrop_open"></div>-->
+</aura:component>

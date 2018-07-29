@@ -1,0 +1,8 @@
+<!--
+ - Created by Mateusz on 2018-07-16.
+ -->
+
+<aura:event type="APPLICATION" description="updateRoomsList">
+    <aura:attribute name="rooms" type="Room__c[]"/>
+    <aura:attribute name="capacity" type="String"/>
+</aura:event>

@@ -1,0 +1,81 @@
+<!--
+ - Created by Mateusz on 2018-07-18.
+ -->
+
+<aura:component controller="ReceptionDeskController" description="reservationModal">
+    <aura:attribute name="rooms" type="Room__c[]"/>
+    <aura:attribute name="enteredData" type="Object"/>
+    <aura:attribute name="guests" type="Guest__c[]"/>
+    <aura:attribute name="reservationId" type="String"/>
+    <aura:attribute name="reservationInfo" type="String[]"/>
+    <aura:attribute name="completeFlag" type="Boolean"/>
+    <aura:attribute name="tabUrl" type="String"/>
+    <aura:attribute name="notAllGuestsFilled" type="Boolean" default="false"/>
+    <aura:attribute name="cancelFlag" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.prepareEnteredData}"/>
+    <aura:handler event="c:sendFinalData" action="{!c.setRequiredData}"/>
+
+    <aura:registerEvent name="closeReservationModal" type="c:closeReservationModal"/>
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header slds-theme_success">
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Complete Reservation</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <c:reservationModalRoomsList rooms="{!v.rooms}"/>
+            </div>
+            <footer class="slds-modal__footer">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        <aura:if isTrue="{!v.notAllGuestsFilled}">
+                            <p class="slds-align_absolute-center slds-text-align--center slds-text-body--small slds-text-color_error">
+                                Before completing reservation, you must enter each guest data.
+                            </p>
+                        </aura:if>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.cancelReservation}">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{!c.makeCompleteReservation}">Save</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+<!--    <aura:if isTrue="{!v.completeFlag}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_success">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">RESERVATION COMPLETE</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-text-align&#45;&#45;center" id="modal-content-id-1">
+                    Congratulations! You've completed filling the reservation! You will now be redirected to your reservation details.
+                </div>
+                <footer class="slds-modal__footer"><button class="slds-button slds-button_success" onclick="{!c.handleClick}">OK</button></footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>-->
+
+    <aura:if isTrue="{!v.cancelFlag}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_error">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">CANCEL RESERVATION</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-text-align&#45;&#45;center" id="modal-content-id-1">
+                    Are you sure you want to cancel your reservation?
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_outline-brand" onclick="{!c.abortCancel}">No</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.cancelModal}">Yes</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>

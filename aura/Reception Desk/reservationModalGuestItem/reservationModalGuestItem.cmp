@@ -1,0 +1,49 @@
+<!--
+ - Created by Mateusz on 2018-07-18.
+ -->
+
+<aura:component description="reservationModalGuestItem">
+    <aura:attribute name="guest" type="Object"/>
+    <aura:attribute name="formFlag" type="Boolean"/>
+    <aura:attribute name="editFormFlag" type="Boolean"/>
+
+    <aura:handler event="c:guestFormModalData" action="{!c.cancelModal}"/>
+
+    <tr>
+        <th scope="row" data-label="First Name">
+            <div class="slds-truncate" title="{!v.guest.First_Name__c}">{!v.guest.First_Name__c}</div>
+        </th>
+        <td data-label="Last Name">
+            <div class="slds-truncate" title="{!v.guest.Last_Name__c}">{!v.guest.Last_Name__c}</div>
+        </td>
+
+        <aura:if isTrue="{!v.guest.Last_Name__c == ''}">
+            <td data-label="Button">
+                <div class="slds-truncate slds-m-vertical--x-small slds-text-align--center" title="Button">
+                    <button class=" slds-button slds-button_brand" onclick="{!c.enableGuestModal}">
+                        Add Guest
+                    </button>
+                </div>
+            </td>
+
+            <aura:set attribute="else">
+                <td data-label="Button">
+                    <div class="slds-truncate slds-m-vertical--x-small slds-text-align--center" title="Button">
+                        <button class="slds-truncate slds-button slds-button_brand slds-text-align--center" onclick="{!c.enableEditGuestModal}">
+                            Edit
+                        </button>
+                    </div>
+                </td>
+            </aura:set>
+        </aura:if>
+    </tr>
+
+    <aura:if isTrue="{!v.formFlag}">
+        <c:guestFormModal guest="{!v.guest}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.editFormFlag}">
+        <c:guestEditFormModal guest="{!v.guest}"/>
+    </aura:if>
+
+</aura:component>

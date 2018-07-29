@@ -1,0 +1,32 @@
+<!--
+ - Created by Mateusz on 2018-07-17.
+ -->
+
+<aura:component description="reservedRoomItem">
+    <aura:attribute name="room" type="Room__c"/>
+
+    <aura:registerEvent name="sendRemovedRoom" type="c:sendRemovedRoom"/>
+
+    <tr>
+        <th scope="row" data-label="Room Number">
+            <div class="slds-truncate" title="{!v.room.Name}">{!v.room.Name}</div>
+        </th>
+        <td data-label="Hotel">
+            <div class="slds-truncate" title="{!v.room.Hotel__r.Name}">{!v.room.Hotel__r.Name}</div>
+        </td>
+        <td data-label="Hotel">
+            <div class="slds-truncate" title="{!v.room.Capacity__c}">{!v.room.Capacity__c}</div>
+        </td>
+        <td data-label="Price per Day">
+            <div class="slds-truncate" title="{!v.room.Price_per_Day__c}">{!v.room.Price_per_Day__c}</div>
+        </td>
+        <td>
+            <div class="slds-truncate" title="Remove">
+                <button class="slds-truncate slds-button slds-button_destructive" onclick="{!c.removeFromReservedList}">
+                    Remove
+                </button>
+            </div>
+        </td>
+    </tr>
+
+</aura:component>

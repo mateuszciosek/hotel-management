@@ -1,0 +1,31 @@
+<!--
+ - Created by Mateusz on 2018-07-29.
+ -->
+
+<aura:component controller="HotelDetailController"
+                implements="flexipage:availableForRecordHome,force:hasRecordId"
+                access="global"
+                description="hotelImagesCarousel">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="imagesLinks" type="String[]"/>
+    <aura:attribute name="imagesFound" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.setImages}"/>
+
+    <lightning:card title="Hotel Images">
+        <div class="slds-align_absolute-center">
+            <aura:if isTrue="{!v.imagesFound}">
+                <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false">
+                    <aura:iteration items="{!v.imagesLinks}" var="imageLink">
+                        <lightning:carouselImage
+                                src = "{!imageLink}">
+                        </lightning:carouselImage>
+                    </aura:iteration>
+                </lightning:carousel>
+                <aura:set attribute="else">
+                    <p>No images found.</p>
+                </aura:set>
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,32 @@
+<!--
+ - Created by Mateusz on 2018-07-20.
+ -->
+
+<aura:component controller="ReservationDataController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="sObjectName" type="String"/>
+    <aura:attribute name="rooms" type="Reserved_Room__c[]"/>
+    <aura:attribute name="guests" type="Registered_Guest__c[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.setReservationData}"/>
+
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning:icon size="small" iconName="action:edit"/>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Reserved Rooms</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body">
+            <aura:iteration items="{!v.rooms}" var="room">
+                <c:reservationRoomInformationTable room="{!room}" guests="{!v.guests}"/>
+            </aura:iteration>
+        </div>
+    </article>
+</aura:component>

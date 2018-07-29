@@ -1,0 +1,7 @@
+<!--
+ - Created by Mateusz on 2018-07-27.
+ -->
+
+<aura:event type="APPLICATION" description="removeReservedRooms">
+    <aura:attribute name="flow" type="String"/>
+</aura:event>

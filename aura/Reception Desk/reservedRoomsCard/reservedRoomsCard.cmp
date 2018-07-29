@@ -1,0 +1,11 @@
+<!--
+ - Created by Mateusz on 2018-07-17.
+ -->
+
+<aura:component description="reservedRoomsCard">
+    <lightning:card class="slds-m-bottom--large" title="Your reservation" iconName="custom:custom83">
+        <div class="body-container" style="height: 20rem;">
+            <c:reservedRoomsList/>
+        </div>
+    </lightning:card>
+</aura:component>

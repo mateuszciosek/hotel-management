@@ -1,0 +1,49 @@
+<!--
+ - Created by Mateusz on 2018-07-20.
+ -->
+
+<aura:component description="reservationRoomInformationTable">
+    <aura:attribute name="room" type="Room__c"/>
+    <aura:attribute name="guests" type="Guest__c[]"/>
+    <aura:attribute name="roomGuests" type="Guest__c[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.setRoomGuests}"/>
+
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small"><a onclick="{!c.handleClick}">{!v.room.Room_Number__c} - {!v.room.Hotel_Name__c}</a></span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <table class="slds-table slds-table_fixed-layout slds-table_bordered slds-no-row-hover slds-table_cell-buffer">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="First Name">First Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Last Name">Last Name</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.roomGuests}" var="guest">
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!guest.First_Name__c}">{!guest.First_Name__c}</div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate" title="{!guest.Last_Name__c}">{!guest.Last_Name__c}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</aura:component>

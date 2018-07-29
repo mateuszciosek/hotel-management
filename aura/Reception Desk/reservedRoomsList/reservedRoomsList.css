@@ -1,0 +1,10 @@
+/**
+ * Created by Mateusz on 2018-07-17.
+ */
+.THIS .reservation-list-bottom {
+    position: absolute;
+    bottom: 0;
+
+    height: 15%;
+    width: 100%;
+}

@@ -1,0 +1,6 @@
+<!--
+ - Created by Mateusz on 2018-07-16.
+ -->
+
+<aura:event type="APPLICATION" description="sendRecivedRooms">
+</aura:event>

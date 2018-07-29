@@ -1,0 +1,13 @@
+<!--
+ - Created by Mateusz on 2018-07-18.
+ -->
+
+<aura:component description="reservationModalRoomsList">
+    <aura:attribute name="rooms" type="Room__c[]"/>
+
+    <div class="slds-card__body slds-scrollable" style="height: 25rem;">
+        <aura:iteration items="{!v.rooms}" var="room">
+            <c:reservationModalRoomTable room="{!room}"/>
+        </aura:iteration>
+    </div>
+</aura:component>

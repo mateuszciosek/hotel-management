@@ -1,0 +1,7 @@
+<!--
+ - Created by Mateusz on 2018-07-17.
+ -->
+
+<aura:event type="APPLICATION" description="sendRemovedRoom">
+    <aura:attribute name="room" type="Room__c"/>
+</aura:event>

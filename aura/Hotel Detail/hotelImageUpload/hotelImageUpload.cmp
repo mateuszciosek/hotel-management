@@ -1,0 +1,21 @@
+<!--
+ - Created by Mateusz on 2018-07-26.
+ -->
+
+<aura:component controller="AttachmentController"
+                implements="flexipage:availableForRecordHome,force:hasRecordId"
+                access="global"
+                description="hotelImageUpload">
+    <aura:attribute name="recordId" type="String"/>
+
+    <lightning:card title="Choose Hotel Picture">
+
+        <lightning:fileUpload label="Attach Hotel Picture"
+                              name="fileUploader"
+                              multiple="true"
+                              class="slds-m-left--medium"
+                              accept=".png .jpg"
+                              recordId="{!v.recordId}"
+                              onuploadfinished="{!c.handleUploadFinished}"/>
+        </lightning:card>
+</aura:component>

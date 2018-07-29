@@ -1,0 +1,35 @@
+<!--
+ - Created by Mateusz on 2018-07-18.
+ -->
+
+<aura:component description="reservationModalRoomTable">
+    <aura:attribute name="room" type="Room__c"/>
+    <aura:attribute name="guests" type="Object[]"/>
+
+    <aura:registerEvent name="sendFinalData" type="c:sendFinalData"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler event="c:guestFormModalData" action="{!c.applyGuestData}"/>
+
+    <p class="slds-text-heading_small slds-m-vertical--xx-small slds-text-align--center">{!v.room.Name} - {!v.room.Hotel__r.Name}</p>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div  class="slds-truncate" title="First Name">First Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Last Name">Last Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Button"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.guests}" var="guest">
+            <c:reservationModalGuestItem guest="{!guest}"/>
+        </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

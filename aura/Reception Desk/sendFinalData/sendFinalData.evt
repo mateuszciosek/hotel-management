@@ -1,0 +1,7 @@
+<!--
+ - Created by Mateusz on 2018-07-19.
+ -->
+
+<aura:event type="APPLICATION" description="sendFinalData">
+    <aura:attribute name="guest" type="Object"/>
+</aura:event>

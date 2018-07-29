@@ -1,0 +1,10 @@
+<!--
+ - Created by Mateusz on 2018-07-19.
+ -->
+
+<aura:event type="APPLICATION" description="guestFormModalData">
+    <aura:attribute name="formFlag" type="Boolean"/>
+    <aura:attribute name="editFormFlag" type="Boolean"/>
+    <aura:attribute name="guest" type="Object"/>
+    <aura:attribute name="editCancelled" type="Boolean"/>
+</aura:event>

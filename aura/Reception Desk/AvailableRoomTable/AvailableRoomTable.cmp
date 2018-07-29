@@ -1,0 +1,50 @@
+<!--
+ - Created by Mateusz on 2018-07-15.
+ -->
+
+<aura:component description="AvailableRoomTable">
+    <aura:attribute name="rooms" type="Room__c[]"/>
+    <aura:attribute name="currentCapacity" type="String"/>
+
+    <aura:handler event="c:updateRoomsList" action="{!c.handleRoomUpdate}"/>
+    <aura:handler event="c:sendRoomAfterClick" action="{!c.removeSelectedRoom}"/>
+    <aura:handler event="c:sendRemovedRoom" action="{!c.addRoomFromReservation}"/>
+
+    <lightning:card title="Available Rooms">
+        <div class="slds-card__body slds-scrollable" style="height: 18rem;">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Room Number">Room Number</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Hotel">Hotel</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Capacity">Capacity</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Price per Day">Price per Day [&euro;]</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Reserve"></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.rooms}" var="room">
+                    <c:RoomItem room="{!room}"/>
+                </aura:iteration>
+                </tbody>
+            </table>
+            <aura:if isTrue="{!v.rooms.length==0}">
+                <div class="slds-text-longform slds-text-align_center slds-m-top--large">
+                    <img src="{!$Resource.ximage}" height="100" width="100"/>
+                    <h3 class="slds-text-heading_medium">No Rooms to Display</h3>
+                    <p class="slds-text-body_regular">No available rooms were found or you have selected all of them to reservation</p>
+                </div>
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

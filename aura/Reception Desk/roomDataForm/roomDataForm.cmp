@@ -1,0 +1,60 @@
+<!--
+ - Created by Mateusz on 2018-07-16.
+ -->
+
+<aura:component controller="ReceptionDeskController" description="roomDataForm">
+    <aura:attribute name="flag" type="Boolean" default="false"/>
+    <aura:attribute name="setDate" type="String"/>
+    <aura:attribute name="ignoredRooms" type="String[]"/>
+    <aura:attribute name="capacityList" type="Integer[]" default="2,3"/>
+    <aura:attribute name="resetError" type="Boolean" default="false"/>
+    <aura:attribute name="resetReservedRooms" type="Boolean" default="false"/>
+    <aura:attribute name="previousBeginDate" type="String"/>
+    <aura:attribute name="previousEndDate" type="String"/>
+
+    <aura:registerEvent name="updateFlag" type="c:showRoomsTable"/>
+    <aura:registerEvent name="updateRoomsList" type="c:updateRoomsList"/>
+    <aura:registerEvent name="sendReservationDates" type="c:sendReservationDates"/>
+    <aura:registerEvent name="removeReservedRooms" type="c:removeReservedRooms"/>
+
+    <aura:handler event="c:sendRoomAfterClick" action="{!c.addToIgnoredList}"/>
+    <aura:handler event="c:sendRemovedRoom" action="{!c.removeFromIgnored}"/>
+    <aura:handler event="c:sendReservationDates" action="{!c.setPreviousReservationDates}"/>
+
+        <lightning:card class="slds-m-bottom--large" title="Enter reservation data" iconName="custom:custom55">
+            <div class="slds-card__body" style="height: 20rem;">
+                <form class="slds-form--stacked slds-p-horizontal--medium" >
+                    <lightning:input aura:id="beginDate" value="{!v.setDate}" required="true" name="beginDate" label="Beginning Date" type="datetime-local"/>
+                    <aura:if isTrue="{!v.resetError}">
+                        <p class="slds-text-color_error slds-text-body--small">Beginning Date must be earlier than End Date!</p>
+                    </aura:if>
+                    <lightning:input aura:id="endDate" required="true" name="endDate" label="Ending Date" type="datetime-local"/>
+                    <lightning:select aura:id="capacity" name="capacity" label="Room Capacity">
+                        <aura:iteration items="{!v.capacityList}" var="item">
+                            <option text="{!item}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                    <lightning:button onclick="{!c.checkDate}" label="Check Availability" class="slds-m-top--medium" variant="brand"/>
+                </form>
+            </div>
+        </lightning:card>
+
+    <aura:if isTrue="{!v.resetReservedRooms}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_warning">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Changing Reservation Dates</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p class="slds-text-align--center">Are you sure you want to change reservation dates? This action will remove all previously selected rooms!</p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.cancelBox}">No</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.confirmBox}">Yes</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>

@@ -1,0 +1,8 @@
+<!--
+ - Created by Mateusz on 2018-07-18.
+ -->
+
+<aura:event type="APPLICATION" description="sendReservationDates">
+    <aura:attribute name="begin" type="String"/>
+    <aura:attribute name="end" type="String"/>
+</aura:event>

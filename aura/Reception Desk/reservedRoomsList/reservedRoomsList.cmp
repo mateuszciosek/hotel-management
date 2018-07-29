@@ -1,0 +1,53 @@
+<!--
+ - Created by Mateusz on 2018-07-17.
+ -->
+
+<aura:component controller="ReceptionDeskController" description="reservedRoomsList">
+    <aura:attribute name="rooms" type="Room__c[]"/>
+    <aura:attribute name="dates" type="Object"/>
+    <aura:attribute name="reservationId" type="String"/>
+    <aura:attribute name="modalFlag" type="Boolean" default="false"/>
+
+    <aura:handler event="c:sendRoomAfterClick" action="{!c.addReceivedRoom}"/>
+    <aura:handler event="c:sendRemovedRoom" action="{!c.removeRoom}"/>
+    <aura:handler event="c:sendReservationDates" action="{!c.setReservationDates}"/>
+    <aura:handler event="c:closeReservationModal" action="{!c.closeReservationModal}"/>
+    <aura:handler event="c:removeReservedRooms" action="{!c.clearList}"/>
+
+        <div class="slds-card__body slds-scrollable" style="height: 85%;">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Room Number">Room Number</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Hotel">Hotel</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Capacity">Capacity</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Price per Day">Price per Day [&euro;]</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.rooms}" var="room">
+                    <c:reservedRoomItem room="{!room}"/>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+        <div class="reservation-list-bottom">
+            <div class="slds-text-align--center">
+                <button class="slds-button slds-button_brand" onclick="{!c.makeReservation}">Make Reservation</button>
+            </div>
+        </div>
+
+        <aura:if isTrue="{!v.modalFlag}">
+            <c:reservationModal reservationId="{!v.reservationId}" rooms="{!v.rooms}"/>
+        </aura:if>
+
+
+</aura:component>

@@ -1,0 +1,28 @@
+<!--
+ - Created by Mateusz on 2018-07-14.
+ -->
+
+<aura:component description="RoomItem">
+    <aura:attribute name="room" type="Room__c"/>
+
+    <aura:registerEvent name="sendRoomAfterClick" type="c:sendRoomAfterClick"/>
+
+    <tr aura:id="room-item">
+        <th scope="row" data-label="Room Number">
+            <div class="slds-truncate" title="{!v.room.Name}">{!v.room.Name}</div>
+        </th>
+        <td data-label="Hotel">
+            <div class="slds-truncate" title="{!v.room.Hotel__r.Name}">{!v.room.Hotel__r.Name}</div>
+        </td>
+        <td data-label="Hotel">
+            <div class="slds-truncate" title="{!v.room.Capacity__c}">{!v.room.Capacity__c}</div>
+        </td>
+        <td data-label="Price per Day">
+            <div class="slds-truncate" title="{!v.room.Price_per_Day__c}">{!v.room.Price_per_Day__c}</div>
+        </td>
+        <td>
+            <div class="slds-truncate" title="Reserve"><button class="slds-truncate slds-button slds-button_success" onclick="{!c.addRoomToReservation}">Add to reservation</button></div>
+            <!--<button class="slds-truncate slds-button slds-button_success" onclick="{!c.addRoomToReservation}">Add to reservation</button>-->
+        </td>
+    </tr>
+</aura:component>
