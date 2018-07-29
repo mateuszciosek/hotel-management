@@ -27,7 +27,7 @@
             <div class="slds-size_1-of-1">
                 <div class="slds-m-horizontal--medium slds-m-bottom--large">
                     <!-- List of rooms that are possible to reserve -->
-                    <c:AvailableRoomTable/>
+                    <c:availableRoomTable/>
                 </div>
 
             </div>

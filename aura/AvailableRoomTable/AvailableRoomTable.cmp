@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                 <aura:iteration items="{!v.rooms}" var="room">
-                    <c:RoomItem room="{!room}"/>
+                    <c:roomItemObject room="{!room}"/>
                 </aura:iteration>
                 </tbody>
             </table>
