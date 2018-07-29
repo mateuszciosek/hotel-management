@@ -13,7 +13,7 @@ private class ReceptionDeskControllerTest {
         Reservation__c testReservation = new Reservation__c(Reservation_Begin__c=dateBegin, Reservation_End__c=dateEnd);
         insert testReservation;
 
-        Hotel__c hotel = new Hotel__c(Name='Test Hotel');
+        Hotel__c hotel = new Hotel__c(Name='Test Hotel', Street__c='Test Street', City__c='Test City', ZIP_Code__c=23409 );
         insert hotel;
 
         Room__c room = new Room__c(Name='1', Hotel__c=hotel.Id, Capacity__c='2');
@@ -57,6 +57,32 @@ private class ReceptionDeskControllerTest {
         List<String> expected = ReceptionDeskController.fulfillReservation(testGuests, testRegisteredGuests);
         Test.stopTest();
 
-        System.assertEquals(reservationInfo.size(), expected.size(), 'Not equal :/');
+        System.assertEquals(reservationInfo.size(), expected.size());
+    }
+
+    static testMethod void testCancelReservation() {
+        Datetime dateBegin = Datetime.now();
+        Datetime dateEnd = Datetime.now().addDays(5);
+        Reservation__c reservation = new Reservation__c(Reservation_Begin__c=dateBegin, Reservation_End__c=dateEnd);
+        insert reservation;
+
+        Test.startTest();
+        ReceptionDeskController.cancelReservation(reservation.Id);
+        Test.stopTest();
+
+        Reservation__c[] deletedReservation = [SELECT Id FROM Reservation__c WHERE Id = :reservation.Id];
+
+        System.assertEquals(deletedReservation.size(), 0);
+    }
+
+    static testMethod void testGetGuestByIDCard() {
+        Guest__c guest = new Guest__c(First_Name__c='Maria', Last_Name__c='Tester', ID_Card__c='YPO564882');
+        insert guest;
+
+        Test.startTest();
+        Guest__c guestFound = ReceptionDeskController.getGuestByIDCard(guest.ID_Card__c);
+        Test.stopTest();
+
+        System.assertEquals(guestFound, guest);
     }
 }
